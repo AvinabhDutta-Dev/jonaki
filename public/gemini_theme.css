@@ -1,0 +1,139 @@
+/* 1. Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap');
+
+/* 2. Global Theme Variables - Firefly Palette */
+:root {
+    --jonaki-bg: #0A1119;
+    --jonaki-element-bg: #141d27;
+    --jonaki-element-hover: #1f2c3a;
+    --jonaki-text-primary: #e3e3e3;
+    --jonaki-glow: #F7FCA7;
+    --jonaki-glow-soft: #E9FBA6;
+    --jonaki-glow-dim: rgba(247, 252, 167, 0.35);
+}
+
+/* 3. Force the app's own CSS variables to firefly colors.
+   This app is Tailwind/shadcn-based (bg-primary, bg-accent, etc.),
+   not Material UI - so overriding these variables is the reliable fix,
+   not chasing individual component classes. */
+:root, .dark {
+    --primary: 70 92% 81% !important;
+    --primary-foreground: 200 60% 6% !important;
+    --background: 200 45% 6% !important;
+    --accent: 200 25% 12% !important;
+    --card: 200 25% 11% !important;
+}
+
+body, html, div#root {
+    background-color: var(--jonaki-bg) !important;
+    font-family: 'Outfit', -apple-system, sans-serif !important;
+    color: var(--jonaki-text-primary) !important;
+}
+
+/* 4. Message composer / input bar glow */
+#message-composer {
+    box-shadow: 0 0 16px var(--jonaki-glow-dim) !important;
+    transition: box-shadow 0.3s ease !important;
+}
+#message-composer:focus-within {
+    box-shadow: 0 0 22px var(--jonaki-glow-dim) !important;
+}
+
+/* 5. Starter Buttons (Welcome Chips) */
+#root button[class*="Starter"],
+#root .starter-btn {
+    border-radius: 24px !important;
+    text-transform: none !important;
+    transition: all 0.25s ease !important;
+}
+#root button[class*="Starter"]:hover,
+#root .starter-btn:hover {
+    border-color: var(--jonaki-glow-soft) !important;
+    box-shadow: 0 0 12px var(--jonaki-glow-dim) !important;
+}
+
+/* LOGIN PAGE right-panel firefly image: confirmed via inspector that
+   Chainlit hardcodes class="brightness-[0.2] grayscale" directly onto
+   this img (alt="Image"), unrelated to login_page_image_filter config.
+   Override both forcefully. */
+#root img[alt="Image"].grayscale,
+#root img[alt="Image"][class*="brightness-"] {
+    filter: none !important;
+    -webkit-filter: none !important;
+    opacity: 1 !important;
+}
+
+/* --------------------------------------------------- */
+/* BRANDING: Jonaki Firefly Identity                    */
+/* --------------------------------------------------- */
+
+/* The header on the authenticated chat page has no logo/brand slot
+   in the DOM at all - only sidebar icons. The firefly icon + "Jonaki"
+   text there are injected via theme_injector.js instead, since CSS
+   alone cannot create new elements. See public/theme_injector.js */
+.jonaki-brand {
+    animation: firefly-pulse 3s ease-in-out infinite;
+}
+
+/* The LOGIN PAGE logo slot (different page, different DOM) - if a
+   logo element exists here, style it. If empty like the chat header,
+   this rule simply matches nothing and does no harm. */
+img.logo[alt="logo"] {
+    visibility: hidden !important;
+    position: relative;
+    width: 28px !important;
+    height: 28px !important;
+    display: inline-block !important;
+}
+img.logo[alt="logo"]::before {
+    content: "";
+    visibility: visible;
+    position: absolute;
+    inset: 0;
+    background-image: url('/public/firefly_logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 0 5px var(--jonaki-glow-dim));
+}
+img.logo[alt="logo"]::after {
+    content: "Jonaki";
+    visibility: visible;
+    position: absolute;
+    left: 34px;
+    top: 2px;
+    width: 100px;
+    color: var(--jonaki-glow);
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    text-shadow: 0 0 8px var(--jonaki-glow-dim);
+    white-space: nowrap;
+}
+
+/* --- WELCOME SCREEN: the big centered logo (w-[200px]) keeps its
+   own size untouched, shows the firefly art directly (already
+   correct via config.toml), plus a glowing "Jonaki" wordmark
+   beneath it. NOTE: pseudo-elements on <img> tags are unreliable
+   across browsers since img is a replaced element with no content
+   box - so we attach ::after to the PARENT #welcome-screen container
+   instead, right after the image, using flex ordering. */
+#welcome-screen img.logo {
+    filter: drop-shadow(0 0 10px var(--jonaki-glow-dim));
+    order: -2;
+}
+#welcome-screen::after {
+    content: "Jonaki";
+    order: -1;
+    display: block;
+    text-align: center;
+    font-size: 44px;
+    font-weight: 600;
+    color: var(--jonaki-glow);
+    text-shadow: 0 0 12px var(--jonaki-glow-dim);
+    animation: firefly-pulse 3s ease-in-out infinite;
+}
+
+@keyframes firefly-pulse {
+    0%, 100% { text-shadow: 0 0 8px var(--jonaki-glow-dim); }
+    50% { text-shadow: 0 0 18px var(--jonaki-glow), 0 0 6px var(--jonaki-glow-soft); }
+}

@@ -1,0 +1,104 @@
+[project]
+# List of environment variables to be provided by each user to use the app.
+user_env = []
+
+# Duration (in seconds) during which the session is saved when the connection is lost
+session_timeout = 3600
+
+# Duration (in seconds) of the user session expiry
+user_session_timeout = 1296000  # 15 days
+
+# Enable third parties caching (e.g., LangChain cache)
+cache = false
+
+# Whether to persist user environment variables (API keys) to the database
+persist_user_env = false
+
+# Whether to mask user environment variables (API keys) in the UI with password type
+mask_user_env = false
+
+# Authorized origins
+allow_origins = ["*"]
+
+[features]
+unsafe_allow_html = false
+latex = true
+user_message_markdown = true
+user_message_autoscroll = true
+assistant_message_autoscroll = true
+auto_tag_thread = true
+edit_message = true
+allow_thread_sharing = false
+favorites = false
+
+[features.slack]
+reaction_on_message_received = false
+
+[features.spontaneous_file_upload]
+    enabled = true
+    accept = ["*/*"]
+    max_files = 20
+    max_size_mb = 500
+
+[features.audio]
+    enabled = false
+    sample_rate = 24000
+
+[features.mcp]
+    enabled = false
+
+[features.mcp.sse]
+    enabled = true
+
+[features.mcp.streamable-http]
+    enabled = true
+
+[features.mcp.stdio]
+    enabled = true
+    allowed_executables = [ "npx", "uvx" ]
+
+[UI]
+# Name of the assistant.
+name = "Jonaki"
+
+# Description of the assistant. This is used for HTML tags.
+description = "Jonaki - এ.আই. শিক্ষক, আপোনাৰ অসমীয়া পঢ়াৰ সঙ্গী।"
+
+default_theme = "dark"
+
+# Link your new CSS file
+custom_css = "/public/gemini_theme.css"
+
+# Turn ON the JavaScript Injector (creates the header logo+text,
+# since the chat page header has no logo slot in the DOM at all -
+# CSS alone cannot insert new elements, only style existing ones)
+custom_js = "/public/theme_injector.js"
+
+# Force a specific language for all users (e.g., "en-US", "he-IL", "fr-FR")
+language = "en-US"
+
+# Whether to prompt user confirmation on clicking 'New Chat'
+confirm_new_chat = true
+
+# Chain of Thought (CoT) display mode. Can be "hidden", "tool_call" or "full".
+cot = "full"
+
+# The style of alert boxes. Can be "classic" or "modern".
+alert_style = "classic"
+
+# Custom login page image, relative to public directory or external URL
+login_page_image = "/public/firefly_logo.svg"
+# Note: Chainlit hardcodes brightness/grayscale classes onto this image
+# regardless of filter settings here - actual fix is in gemini_theme.css
+
+# Load assistant logo directly from URL.
+logo_file_url = "/public/firefly_logo.svg"
+
+# Load assistant avatar image directly from URL.
+default_avatar_file_url = "/public/firefly_logo.svg"
+
+# Avatar size in pixels (default: 20).
+avatar_size = 28
+
+[meta]
+generated_by = "2.10.0"
