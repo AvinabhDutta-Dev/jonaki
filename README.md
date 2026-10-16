@@ -1,7 +1,7 @@
 # Jonaki (জোনাকী) — Assamese AI Tutor for Primary Education
 
 
-[![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)](https://www.python.org/)
+![Python](https://img.shields.io/badge/Python-3.13%20%7C%2064--bit-blue)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Framework](https://img.shields.io/badge/UI-Chainlit-6C47FF)](https://chainlit.io/)
 [![RAG](https://img.shields.io/badge/Architecture-RAG-0F766E)](https://github.com/AvinabhDutta-Dev/jonaki)
@@ -12,7 +12,7 @@
 
 - [The Problem](#the-problem)
 - [What Jonaki Does](#what-jonaki-baseline-does)
-- [Results and Evaluation](#results-from-evaluation)
+- [Results and Evaluation](#results-and-evaluation)
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Setup](#-setup)
@@ -27,7 +27,7 @@ Global AI models like ChatGPT and Gemini are heavily optimized for English. When
 
 ## What Jonaki (Baseline) Does
 
-Jonaki is a Retrieval-Augmented Generation (RAG) chatbot that answers **exclusively from official SCERT Class 3–4 EVS textbook content** — no open-domain knowledge, no hallucination, no language mixing. It:
+Jonaki is a Retrieval-Augmented Generation (RAG) chatbot designed to answer questions using indexed official SCERT Class 3–4 EVS textbook content. It retrieves relevant passages and uses them to generate age-appropriate Assamese answers with textbook page references. The current prototype aims to reduce unsupported answers and language mixing, but does not guarantee their complete elimination. It:
 
 - OCRs source textbook PDFs using **Sarvam-Vision** (built for Assamese script)
 - Chunks and embeds the content, storing it in **ChromaDB**
@@ -92,7 +92,7 @@ Jonaki is currently a **baseline prototype** for Assamese-medium primary educati
 - Reranks retrieved passages before generating an answer.
 - Provides textbook-based page references with responses.
 - Collects user feedback for later analysis and improvement.
-- Full test conversation logs with Helpful/Not Helpful ratings are included in `data/rlhf_feedback_dataset.csv`
+- Includes a historical feedback dataset in `data/rlhf_feedback_dataset.csv` for inspection and analysis; its presence alone does not establish a formal model evaluation.
 
 ## 🛠️ Tech Stack
 
@@ -129,7 +129,7 @@ jonaki/
 ├── data/
 │   ├── pdfs/                 # Source SCERT textbooks (not included — copyrighted curriculum material)
 │   ├── cleaned_text/
-│   └── rlhf_feedback_dataset.csv   # Real evaluation conversations + feedback
+│   └── rlhf_feedback_dataset.csv   # Historical feedback export
 ├── textbook_chunks/           # Processed JSONL chunks
 ├── public/                     # Custom Chainlit theme (firefly branding)
 ├── .chainlit/                   # Chainlit config
@@ -146,13 +146,77 @@ jonaki/
 
 ## ⚙️ Setup
 
+### 1. Clone the repository
+
 ```bash
 git clone https://github.com/AvinabhDutta-Dev/jonaki.git
 cd jonaki
-pip install -r requirements.txt
-cp .env.example .env
-# Fill in your SARVAM_API_KEY and CHAINLIT_AUTH_SECRET in .env
 ```
+
+### 2. Create a virtual environment
+
+**Windows (PowerShell):**
+**Python version used:** Python 3.13 (64-bit).
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+**Linux / macOS:**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### 4. Configure environment variables
+
+Create a `.env` file by copying `.env.example`.
+
+**Windows (PowerShell):**
+
+```powershell
+Copy-Item .env.example .env
+```
+
+**Linux / macOS:**
+
+```bash
+cp .env.example .env
+```
+
+Open `.env` and set the following values:
+
+```env
+SARVAM_API_KEY=your_actual_sarvam_api_key
+CHAINLIT_AUTH_SECRET=your_unique_random_secret
+```
+
+- `SARVAM_API_KEY`: Your Sarvam API key, used for the provider services configured by the application.
+- `CHAINLIT_AUTH_SECRET`: A private secret used by Chainlit's authentication/session mechanisms. Generate a unique, sufficiently random value for your own environment.
+
+**Security:** Never commit your real `.env` file or publish API keys and secrets. Keep `.env.example` limited to placeholders.
+
+### 5. Prepare the textbook index
+
+If you are setting up the project from scratch, obtain the required textbook PDFs and follow the [Data Pipeline](#-data-pipeline-offline-run-once) steps to prepare the chunks and ChromaDB index.
+
+### 6. Run Jonaki
+
+```bash
+chainlit run src/chainlit_app.py
+```
+
+Follow the terminal output to access the local Chainlit interface.
+
+> **Important:** The demo login (`student` / `1234`) is for project demonstration only. Do not use these credentials for a public deployment or real student accounts. The application also depends on the required textbook index being available locally.
 
 ## 📊 Data Pipeline (offline, run once)
 
