@@ -222,6 +222,14 @@ Follow the terminal output to access the local Chainlit interface.
 
 Run these steps from the repository root. The source textbook PDFs are not included, so obtain the required PDFs separately and place them in `data/pdfs/`.
 
+If the input folder does not exist, create it first:
+
+```bash
+python -c "from pathlib import Path; Path('data/pdfs').mkdir(parents=True, exist_ok=True)"
+```
+
+Place your source textbook PDFs in `data/pdfs/` before continuing.
+
 ### 1. Split the textbook PDFs
 
 ```bash
@@ -252,7 +260,7 @@ Removes image tags and empty links, then writes cleaned Markdown files to `data/
 python scripts/chunk_text.py --input-dir data/cleaned_text --output-dir textbook_chunks
 ```
 
-Processes the cleaned Markdown files and writes JSONL chunk files to `textbook_chunks/`.
+Processes cleaned Markdown files using LlamaIndex's Markdown-aware parser and writes JSONL chunk files to `textbook_chunks/`. The current implementation does not enforce the `--chunk-size` or `--overlap` values.
 
 ### 5. Build the ChromaDB index
 
