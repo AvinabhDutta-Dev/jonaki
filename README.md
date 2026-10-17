@@ -218,23 +218,67 @@ Follow the terminal output to access the local Chainlit interface.
 
 > **Important:** The demo login (`student` / `1234`) is for project demonstration only. Do not use these credentials for a public deployment or real student accounts. The application also depends on the required textbook index being available locally.
 
-## 📊 Data Pipeline (offline, run once)
+## 📊 Data Pipeline (offline setup)
+
+Run these steps from the repository root. The source textbook PDFs are not included, so obtain the required PDFs separately and place them in `data/pdfs/`.
+
+### 1. Split the textbook PDFs
 
 ```bash
-python scripts/split_pdf.py          # Split source PDFs for OCR batching
-python scripts/batch_ocr.py           # OCR via Sarvam-Vision
-python scripts/clean_markdown.py       # Strip image tags, normalize
-python scripts/chunk_text.py            # Structure-aware chunking
-python src/ingest_to_chroma.py           # Embed + store in ChromaDB
+python scripts/split_pdf.py
 ```
 
+Reads PDFs from `data/pdfs/` and writes smaller PDF files to `data/split_pdfs/` (five pages per file by default).
+
+### 2. Extract text using OCR
+
+```bash
+python scripts/batch_ocr.py
+```
+
+Uses the Sarvam OCR service to process the split PDFs and saves Markdown output in `textbook_txt/`. Configure `SARVAM_API_KEY` in your `.env` file first.
+
+### 3. Clean the extracted text
+
+```bash
+python scripts/clean_markdown.py
+```
+
+Removes image tags and empty links, then writes cleaned Markdown files to `data/cleaned_text/`.
+
+### 4. Create text chunks
+
+```bash
+python scripts/chunk_text.py --input-dir data/cleaned_text --output-dir textbook_chunks
+```
+
+Processes the cleaned Markdown files and writes JSONL chunk files to `textbook_chunks/`.
+
+### 5. Build the ChromaDB index
+
+```bash
+python src/ingest_to_chroma.py
+```
+
+Generates local embeddings and stores the chunks and metadata in the persistent ChromaDB index at `./chroma_db/` by default.
+
+**Note:** OCR requires a working Sarvam API key. The indexing step downloads and loads the local embedding model, so it may take time and require sufficient memory. Keep the generated `chroma_db/` directory available when running the application.
+
 ## ▶️ Running the App
+
+Run the following command from the repository root after completing the setup and ensuring the local ChromaDB index is available.
 
 ```bash
 chainlit run src/chainlit_app.py
 ```
 
-Demo login: `student` / `1234` (mock authentication for project demonstration purposes)
+Open the local URL displayed in the terminal.
+
+**Demo login:** `student` / `1234`
+
+These hardcoded credentials are for project demonstration only. Do not use them for a public deployment or real user accounts.
+
+**Important:** The application loads local embedding and reranking models at startup and uses Sarvam for chat responses. First-time model downloads and loading may take time. Keep your `SARVAM_API_KEY` configured and never commit your real `.env` file.
 
 ## 📦 Requirements
 
