@@ -1,3 +1,17 @@
+<p align="center">
+  <img
+    src="docs/images/jonaki-hero-banner.png"
+    alt="Jonaki — an AI learning companion for Assamese students"
+    width="100%"
+  />
+</p>
+
+<p align="center">
+  <strong>An AI learning companion for Assamese students</strong><br />
+  SCERT Class 3–4 Environmental Studies · Assamese-first learning
+</p>
+
+
 # Jonaki (জোনাকী) — Assamese AI Tutor for Primary Education
 
 
@@ -36,6 +50,26 @@ Jonaki is a Retrieval-Augmented Generation (RAG) chatbot designed to answer ques
 - Routes common greetings and small-talk messages using keyword-based rules, while educational questions go through the RAG pipeline
 - Maintains per-student session memory and login (via Chainlit's auth + SQLite data layer)
 - Collects thumbs-up/down feedback and stores feedback records in SQLite for later analysis; feedback logging does not currently train or update the model
+
+
+## See Jonaki in Action
+
+<p align="center">
+  <img
+    src="docs/images/jonaki-welcome.png"
+    alt="Jonaki welcome screen with suggested educational questions"
+    width="100%"
+  />
+</p>
+
+<p align="center">
+  <img
+    src="docs/images/jonaki-chat-example.png"
+    alt="Jonaki answering an Environmental Studies question in Assamese"
+    width="100%"
+  />
+</p>
+
 
 ## 🧠 System Architecture
 
