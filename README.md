@@ -22,18 +22,22 @@
 
 **Status: Baseline prototype.** This repository contains the initial working prototype of Jonaki, built as a major B.Tech project — scoped to Class 3 & 4 Environmental Science (EVS/পৰিৱেশ) for Assamese-medium schools. The architecture here is being extended toward a broader goal: an Assamese-native AI tutor for competitive exam preparation (APSC), answering exclusively from verified past question papers.
 
+
 ## Table of Contents
 
 - [The Problem](#the-problem)
 - [What Jonaki Does](#what-jonaki-baseline-does)
+- [See Jonaki in Action](#see-jonaki-in-action)
+- [System Architecture](#-system-architecture)
 - [Results and Evaluation](#results-and-evaluation)
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Setup](#-setup)
-- [Data Pipeline](#-data-pipeline-offline-run-once)
+- [Data Pipeline](#-data-pipeline-offline-setup)
 - [Running the App](#-running-the-app)
 - [Requirements](#-requirements)
-- [Notes and Limitations](#-notes)
+- [Notes](#-notes)
+
 
 ## The Problem
 
@@ -137,7 +141,7 @@ Jonaki is currently a **baseline prototype** for Assamese-medium primary educati
 | Embeddings | BAAI/bge-m3 (sentence-transformers) |
 | Reranker | BAAI/bge-reranker-v2-m3 |
 | Vector DB | ChromaDB (persistent, local) |
-| Chunking | LlamaIndex (Markdown-aware) |
+| Chunking | LlamaIndex `MarkdownNodeParser` |
 | UI / Orchestration | Chainlit |
 | Session Storage | SQLite (via Chainlit's SQLAlchemy data layer) |
 | Feedback Logging | Custom feedback logger → SQLite |
@@ -189,8 +193,10 @@ cd jonaki
 
 ### 2. Create a virtual environment
 
-**Windows (PowerShell):**
 **Python version used:** Python 3.13 (64-bit).
+
+**Windows (PowerShell):**
+
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
