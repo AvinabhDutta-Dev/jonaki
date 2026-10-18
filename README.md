@@ -120,31 +120,45 @@ flowchart TB
 
 *Note: This diagram represents the implemented baseline flow. It does not imply a measured accuracy level or guaranteed hallucination prevention.*
 
+
 ## Results and Evaluation
 
-Jonaki is currently a **baseline prototype** for Assamese-medium primary education. It combines textbook retrieval, passage reranking, and LLM-based answer generation to support questions about SCERT Class 3–4 Environmental Science content.
+Jonaki is currently a baseline prototype for Assamese-medium primary education. It implements a retrieval-augmented generation (RAG) pipeline for answering questions about SCERT Class 3–4 Environmental Science (EVS) textbook content.
 
-### Current Capabilities
+### Implemented Capabilities
 
-- Retrieves relevant passages from the locally indexed textbook chunks.
-- Reranks retrieved passages before generating an answer.
-- Provides textbook-based page references with responses.
-- Collects user feedback for later analysis and improvement.
-- Includes a historical feedback dataset in `data/rlhf_feedback_dataset.csv` for inspection and analysis; its presence alone does not establish a formal model evaluation.
+- **Textbook retrieval:** Embeds student questions using BAAI/bge-m3 and retrieves up to 10 relevant chunks from ChromaDB.
+- **Passage reranking:** Uses BAAI/bge-reranker-v2-m3 to select up to 3 passages as context for answer generation.
+- **Answer generation:** Uses Sarvam-30B to generate responses based on the retrieved textbook context.
+- **Source references:** Displays textbook class and page references using the retrieved chunks' metadata when available.
+- **Feedback collection:** Records helpful and not-helpful ratings, along with the corresponding question and answer, in SQLite.
+- **Historical feedback data:** Includes `data/rlhf_feedback_dataset.csv` for inspection and further analysis. These records are not, by themselves, a formal measure of model quality.
+
+### Evaluation Status
+
+The repository does not currently report benchmark-based scores for answer correctness, retrieval quality, citation support, Assamese language quality, or response latency.
+
+The script `scripts/test_provider.py` provides basic checks of the Sarvam client and its API calls; it explicitly is not a comprehensive unit test suite. These checks should not be treated as an evaluation of the complete RAG pipeline or the quality of its answers.
+
+A formal evaluation would require a documented set of representative questions, reference answers or relevant textbook passages, a consistent evaluation procedure, and recorded results.
+
+**Current status:** The core retrieval, reranking, response-generation, and feedback-logging components are implemented. Quantitative answer-quality evaluation remains future work.
+
 
 ## 🛠️ Tech Stack
 
 | Component | Technology |
 |---|---|
-| LLM | Sarvam-30B |
-| OCR | Sarvam-Vision (Assamese-optimized) |
-| Embeddings | BAAI/bge-m3 (sentence-transformers) |
-| Reranker | BAAI/bge-reranker-v2-m3 |
-| Vector DB | ChromaDB (persistent, local) |
-| Chunking | LlamaIndex `MarkdownNodeParser` |
-| UI / Orchestration | Chainlit |
-| Session Storage | SQLite (via Chainlit's SQLAlchemy data layer) |
-| Feedback Logging | Custom feedback logger → SQLite |
+| LLM | ![Sarvam-30B](https://img.shields.io/badge/-Sarvam--30B-0F766E?style=flat-square) |
+| OCR | ![Sarvam-Vision](https://img.shields.io/badge/-Sarvam--Vision-0F766E?style=flat-square) (Assamese-optimized) |
+| Embeddings | ![BAAI/bge-m3](https://img.shields.io/badge/-BAAI%2Fbge--m3-2563EB?style=flat-square) (sentence-transformers) |
+| Reranker | ![BAAI/bge-reranker-v2-m3](https://img.shields.io/badge/-BAAI%2Fbge--reranker--v2--m3-2563EB?style=flat-square) |
+| Vector DB | ![ChromaDB](https://img.shields.io/badge/-ChromaDB-16A34A?style=flat-square) (persistent, local) |
+| Chunking | ![LlamaIndex](https://img.shields.io/badge/-LlamaIndex-7C3AED?style=flat-square) `MarkdownNodeParser` |
+| UI / Orchestration | ![Chainlit](https://img.shields.io/badge/-Chainlit-6C47FF?style=flat-square) |
+| Session Storage | ![SQLite](https://img.shields.io/badge/-SQLite-475569?style=flat-square) (via Chainlit's SQLAlchemy data layer) |
+| Feedback Logging | Custom feedback logger → ![SQLite](https://img.shields.io/badge/-SQLite-475569?style=flat-square) |
+
 
 ## 📁 Project Structure
 
