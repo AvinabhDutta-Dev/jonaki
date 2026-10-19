@@ -149,15 +149,15 @@ A formal evaluation would require a documented set of representative questions, 
 
 | Component | Technology |
 |---|---|
-| LLM | ![Sarvam-30B](https://img.shields.io/badge/-Sarvam--30B-0F766E?style=flat-square) |
-| OCR | ![Sarvam-Vision](https://img.shields.io/badge/-Sarvam--Vision-0F766E?style=flat-square) (Assamese-optimized) |
-| Embeddings | ![BAAI/bge-m3](https://img.shields.io/badge/-BAAI%2Fbge--m3-2563EB?style=flat-square) (sentence-transformers) |
-| Reranker | ![BAAI/bge-reranker-v2-m3](https://img.shields.io/badge/-BAAI%2Fbge--reranker--v2--m3-2563EB?style=flat-square) |
-| Vector DB | ![ChromaDB](https://img.shields.io/badge/-ChromaDB-16A34A?style=flat-square) (persistent, local) |
-| Chunking | ![LlamaIndex](https://img.shields.io/badge/-LlamaIndex-7C3AED?style=flat-square) `MarkdownNodeParser` |
-| UI / Orchestration | ![Chainlit](https://img.shields.io/badge/-Chainlit-6C47FF?style=flat-square) |
-| Session Storage | ![SQLite](https://img.shields.io/badge/-SQLite-475569?style=flat-square) (via Chainlit's SQLAlchemy data layer) |
-| Feedback Logging | Custom feedback logger → ![SQLite](https://img.shields.io/badge/-SQLite-475569?style=flat-square) |
+| LLM | <img src="https://assets.sarvam.ai/tr%3Aw-1080%2Cq-70%2Cf-auto%2Cdpr-auto/assets/brand/guidelines/logomark-on-light.png" alt="Sarvam AI" width="22" /> Sarvam-30B |
+| OCR | <img src="https://assets.sarvam.ai/tr%3Aw-1080%2Cq-70%2Cf-auto%2Cdpr-auto/assets/brand/guidelines/logomark-on-light.png" alt="Sarvam AI" width="22" /> Sarvam-Vision (Assamese-optimized) |
+| Embeddings | <img src="docs/images/tech-stack/baai.svg" alt="BAAI" width="20" height="20" /> BAAI/bge-m3 (sentence-transformers) |
+| Reranker | <img src="docs/images/tech-stack/baai.svg" alt="BAAI" width="20" height="20" /> BAAI/bge-reranker-v2-m3 |
+| Vector DB | <img src="docs/images/tech-stack/chroma.svg" alt="Chroma" width="20" height="20" /> ChromaDB (persistent, local) |
+| Chunking | <img src="docs/images/tech-stack/llamaindex.svg" alt="LlamaIndex" width="20" height="20" /> LlamaIndex `MarkdownNodeParser` |
+| UI / Orchestration | <img src="docs/images/tech-stack/chainlit.svg" alt="Chainlit" width="20" height="20" /> Chainlit |
+| Session Storage | <img src="docs/images/tech-stack/sqlite.svg" alt="SQLite" width="20" height="20" /> SQLite (via Chainlit's SQLAlchemy data layer) |
+| Feedback Logging | Custom feedback logger → <img src="docs/images/tech-stack/sqlite.svg" alt="SQLite" width="20" height="20" /> SQLite |
 
 
 ## 📁 Project Structure
