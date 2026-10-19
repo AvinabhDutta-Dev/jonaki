@@ -149,16 +149,15 @@ A formal evaluation would require a documented set of representative questions, 
 
 | Component | Technology |
 |---|---|
-| LLM | <img src="https://assets.sarvam.ai/tr%3Aw-1080%2Cq-70%2Cf-auto%2Cdpr-auto/assets/brand/guidelines/logomark-on-light.png" alt="Sarvam AI" width="22" /> Sarvam-30B |
-| OCR | <img src="https://assets.sarvam.ai/tr%3Aw-1080%2Cq-70%2Cf-auto%2Cdpr-auto/assets/brand/guidelines/logomark-on-light.png" alt="Sarvam AI" width="22" /> Sarvam-Vision (Assamese-optimized) |
-| Embeddings | <img src="docs/images/tech-stack/baai.svg" alt="BAAI" width="20" height="20" /> BAAI/bge-m3 (sentence-transformers) |
-| Reranker | <img src="docs/images/tech-stack/baai.svg" alt="BAAI" width="20" height="20" /> BAAI/bge-reranker-v2-m3 |
-| Vector DB | <img src="docs/images/tech-stack/chroma.svg" alt="Chroma" width="20" height="20" /> ChromaDB (persistent, local) |
-| Chunking | <img src="docs/images/tech-stack/llamaindex.svg" alt="LlamaIndex" width="20" height="20" /> LlamaIndex `MarkdownNodeParser` |
-| UI / Orchestration | <img src="docs/images/tech-stack/chainlit.svg" alt="Chainlit" width="20" height="20" /> Chainlit |
-| Session Storage | <img src="docs/images/tech-stack/sqlite.svg" alt="SQLite" width="20" height="20" /> SQLite (via Chainlit's SQLAlchemy data layer) |
-| Feedback Logging | Custom feedback logger → <img src="docs/images/tech-stack/sqlite.svg" alt="SQLite" width="20" height="20" /> SQLite |
-
+| LLM | <img src="https://web.sarvam.dev/assets/brand/guidelines/logomark-on-light.png" alt="Sarvam AI" width="20" height="20" /> Sarvam-30B |
+| OCR | <img src="https://web.sarvam.dev/assets/brand/guidelines/logomark-on-light.png" alt="Sarvam AI" width="20" height="20" /> Sarvam-Vision (Assamese-optimized) |
+| Embeddings | <img src="https://raw.githubusercontent.com/AvinabhDutta-Dev/jonaki/main/docs/images/tech-stack/baai.svg" alt="BAAI" width="20" height="20" /> BAAI/bge-m3 (sentence-transformers) |
+| Reranker | <img src="https://raw.githubusercontent.com/AvinabhDutta-Dev/jonaki/main/docs/images/tech-stack/baai.svg" alt="BAAI" width="20" height="20" /> BAAI/bge-reranker-v2-m3 |
+| Vector DB | <img src="https://raw.githubusercontent.com/AvinabhDutta-Dev/jonaki/main/docs/images/tech-stack/chroma.svg" alt="Chroma" width="24" height="18" /> ChromaDB (persistent, local) |
+| Chunking | <img src="https://raw.githubusercontent.com/AvinabhDutta-Dev/jonaki/main/docs/images/tech-stack/llamaindex.svg" alt="LlamaIndex" width="20" height="20" /> LlamaIndex `MarkdownNodeParser` |
+| UI / Orchestration | <img src="https://raw.githubusercontent.com/AvinabhDutta-Dev/jonaki/main/docs/images/tech-stack/chainlit.svg" alt="Chainlit" width="20" height="20" /> Chainlit |
+| Session Storage | <img src="https://raw.githubusercontent.com/AvinabhDutta-Dev/jonaki/main/docs/images/tech-stack/sqlite.svg" alt="SQLite" width="20" height="20" /> SQLite (via Chainlit's SQLAlchemy data layer) |
+| Feedback Logging | Custom feedback logger → <img src="https://raw.githubusercontent.com/AvinabhDutta-Dev/jonaki/main/docs/images/tech-stack/sqlite.svg" alt="SQLite" width="20" height="20" /> SQLite |
 
 ## 📁 Project Structure
 
